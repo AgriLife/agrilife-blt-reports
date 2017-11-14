@@ -1,0 +1,15 @@
+{
+  "name": "agrilife-blt-reports",
+  "version": "1.0.0",
+  "description": "Core functionality plugin for Texas A&M Better Living Texas",
+  "main": "agrilife-blt-reports.php",
+  "scripts": {},
+  "repository": "https://github.com/agrilife/agrilife-blt-reports",
+  "author": "Zachary Watkins",
+  "license": "GPL-2.0+",
+  "engines": {
+    "node": "4.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

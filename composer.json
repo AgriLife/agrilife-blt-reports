@@ -1,0 +1,36 @@
+{
+	"name"             : "agrilife/blt_reports",
+	"description"      : "Core functionality plugin for Texas A&M Better Living Texas",
+	"license"          : "GPL-2.0",
+	"authors"          : [
+		{
+			"name" : "Zachary Watkins",
+			"email": "zachary.watkins@ag.tamu.edu"
+		}
+	],
+	"minimum-stability": "stable",
+	"repositories"     : [
+		{
+			"type"   : "package",
+			"package": {
+				"name"   : "wordpress/unit-tests",
+				"version": "1.0",
+				"source" : {
+					"type"     : "svn",
+					"url"      : "https://unit-tests.svn.wordpress.org",
+					"reference": "trunk"
+				}
+			}
+		}
+	],
+	"require-dev"      : {
+		"monolog/monolog"     : "1.1.*",
+		"phpunit/phpunit"     : "3.7.*",
+		"mikey179/vfsStream"  : "1.2.*"
+	},
+	"autoload"         : {
+		"psr-4": {
+			"AgriLife\\BLT\\": "src"
+		}
+	}
+}
