@@ -34,7 +34,7 @@ class PostType_Newsletter {
 			'supports' => array( 'title', 'post-formats', ),
 			'has_archive' => true,
 			'menu_icon' => 'dashicons-portfolio',
-			'taxonomies' => array('newsletter_language'),
+			'taxonomies' => array('language'),
 			'publicly_queryable' => true,
 		);
 

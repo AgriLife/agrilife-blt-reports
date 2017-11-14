@@ -10,7 +10,12 @@ class CustomPostList {
 
 	public $link;
 
-	public function __construct( $posttype = null, $max = 99, $taxonomy = false ) {
+	public function __construct( $posttype = null, $max = -1, $taxonomy = false ) {
+
+		// Modify $max value if zero
+		if(intval($max) === 0){
+			$max = -1;
+		}
 
 		$this->link = get_post_type_archive_link( $posttype );
 

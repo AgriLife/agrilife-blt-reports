@@ -2,7 +2,8 @@
 namespace AgriLife\BLT;
 
 /**
- * Builds and registers the Report custom post type
+ * Builds and registers the blt_newsletter shortcode
+ * Example: [blt_newsletter limit=5 type=2]
  */
 
 class Shortcode_Newsletters {
@@ -15,20 +16,19 @@ class Shortcode_Newsletters {
 
 	public function blt_newsletter_sc( $atts ){
 
-		// [blt_newsletter limit=5 type=2]
-    $a = shortcode_atts( array(
+    $attributes = shortcode_atts( array(
         'limit' => '5',
         'type' => '1',
     ), $atts );
 
-    $t = array(
-    	'name' => 'newsletter_language',
-    	'terms' => $a['type']
+    $taxonomy = array(
+    	'name' => 'language',
+    	'terms' => $attributes['type']
     );
 
     $output = '<ul>';
 
-		$posts = new \AgriLife\BLT\CustomPostList( 'newsletters', $a['limit'], $t );
+		$posts = new \AgriLife\BLT\CustomPostList( 'newsletters', $attributes['limit'], $taxonomy );
 
 	  $postslist = $posts->results;
 
@@ -36,40 +36,24 @@ class Shortcode_Newsletters {
 
 	    while ( $postslist->have_posts() ) : $postslist->the_post();
 
+	    	// Start list item
 	    	$output .= '<li>';
 
-	    	$html = '<a href="%s">%s</a>';
-				$source = get_field('source');
-				$url = '';
+				// Add link
+				$url = get_permalink();
 
-				if($source == 'URL' && !empty(get_field('url'))){
-
-					$url = get_field('url');
-
-				} else if($source == 'File' && !empty(get_field('file')['url'])){
+				if(get_field('file')){
 
 					$url = get_field('file')['url'];
 
 				}
 
-				// Ensure the URL points to a file
-				if(empty($url)){
-					$url = the_permalink();
-				}
-
 	    	$output .= the_title('<a href="' . $url . '">', '</a>', false);
 
-	    	if(!empty($url)){
+				// Add post date
+				$output .= the_date( 'M. Y', ' (', ')', false );
 
-					preg_match('/\.([a-zA-Z]{3,4})$/', $url, $filetype);
-					if(count($filetype) > 1){
-						$filetype = $filetype[1];
-					}
-
-					$output .= sprintf(' <span class="%s icon">(%s)</span>', $filetype, strtoupper($filetype));
-
-				}
-
+				// Close list item
 	    	$output .= '</li>';
 
 	    endwhile;

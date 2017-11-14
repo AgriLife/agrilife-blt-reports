@@ -1,5 +1,5 @@
 <?php
- /*Template Name: New Template
+ /*Template Name: Single Newsletter
  */
 
 get_header(); ?>
@@ -15,33 +15,26 @@ get_header(); ?>
     <!-- Display movie review contents -->
     <div class="entry-content"><?php
 
-        $source = get_field('source');
-        $link = '<a href="%s"%s>%s</a>';
-        $file = array();
+        if(get_field('file')){
 
-        if($source == 'URL' && !empty(get_field('url'))){
+            $link = '<a href="%s"%s>%s</a>';
+            $file = get_field('file');
 
-            $file['url'] = get_field('url');
-            $file['title'] = '';
-
-            // Get file name from URL
-            preg_match('/[^\/]+$/', $file['url'], $matches);
-            if(count($matches) > 0){
-                $file['filename'] = $matches[0];
+            if(!empty($file['title'])){
+                $file['title'] = ' title="' . $file['title'] . '"';
             }
 
-        } else if($source == 'File' && !empty(get_field('file')['url'])){
+            echo sprintf( $link,
+                $file['url'],
+                $file['title'],
+                $file['filename']
+            );
 
-            $file = get_field('file');
-            $file['title'] = ' title="' . $file['title'] . '"';
+        } else {
+
+            echo 'No file available.';
 
         }
-
-        echo sprintf( $link,
-            $file['url'],
-            $file['title'],
-            $file['filename']
-        );
 
     ?></div>
 </article>

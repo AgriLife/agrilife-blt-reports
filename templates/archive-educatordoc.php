@@ -57,7 +57,10 @@ get_header(); ?>
 				} else if($source == 'File' && !empty(get_field('file')['url'])){
 
 					$file = get_field('file');
-					$file['title'] = ' title="' . $file['title'] . '"';
+
+          if(!empty($file['title'])){
+						$file['title'] = ' title="' . $file['title'] . '"';
+					}
 
 				}
 
